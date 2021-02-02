@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_01_132555) do
+ActiveRecord::Schema.define(version: 2021_02_02_114140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,25 @@ ActiveRecord::Schema.define(version: 2021_02_01_132555) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "photo_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["photo_id"], name: "index_comments_on_photo_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "target_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["target_user_id"], name: "index_follows_on_target_user_id"
+    t.index ["user_id"], name: "index_follows_on_user_id"
+  end
+
   create_table "photos", force: :cascade do |t|
     t.bigint "user_id"
     t.text "caption"
@@ -57,5 +76,7 @@ ActiveRecord::Schema.define(version: 2021_02_01_132555) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "users"
+  add_foreign_key "follows", "users"
   add_foreign_key "photos", "users"
 end

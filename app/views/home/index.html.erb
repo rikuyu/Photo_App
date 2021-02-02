@@ -1,13 +1,33 @@
 <h1>Home</h1>
 
 <div>
-  <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-  <%= link_to "写真投稿", [:new, :photo] %>
+  <li>
+    <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+  </li>
+  <li>
+    <%= link_to "写真投稿", [:new, :photo] %>
+  </li>
 </div>
 
-<% current_user.photos.each do |photo| %>
+<% User.all.each do |user| %>
   <div>
-    <%= image_tag photo.image %>
-    <p><%= photo.caption %></p>
+    <%= link_to user.email, [user] %>
+  </div>
+<% end %>
+<hr>
+<% @feeds.each do |photo| %>
+  <div>
+    <div>
+      <%= link_to photo.user.email, [photo.user] %>
+    </div>
+    <div>
+      <%= link_to [photo] do %>
+        <%= image_tag photo.image %>
+      <% end %>
+    </div>
+    <div>
+      <%= photo.caption %>
+    </div>
+    <hr>
   </div>
 <% end %>

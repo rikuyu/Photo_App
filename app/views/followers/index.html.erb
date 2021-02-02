@@ -1,0 +1,5 @@
+<% @followers.each do |follower| %>
+  <div>
+    <%= link_to  follower.email, [follower] %>
+  </div>
+<% end %>
