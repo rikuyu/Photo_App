@@ -1,19 +1,25 @@
-<% @photos.each do |photo| %>
-  <div class="card mb-4">
-    <div class="card-image">
-      <figure class="image">
-        <%= link_to [photo] do %>
-          <%= image_tag photo.image %>
-        <% end %>
-      </figure>
-    </div>
-    <div class="card-content">
-      <div>
-        <%= link_to photo.user.email, [photo.user] %>
+<% if @photos.size != 0 %>
+  <%= "いいね一覧" %>
+  <hr>
+  <% @photos.each do |photo| %>
+    <div class="card mb-4">
+      <div class="card-image">
+        <figure class="image">
+          <%= link_to [photo] do %>
+            <%= image_tag photo.image %>
+          <% end %>
+        </figure>
       </div>
-      <div>
-        <%= photo.caption %>
+      <div class="card-content">
+        <div>
+          <%= link_to photo.user.email, [photo.user] %>
+        </div>
+        <div>
+          <%= photo.caption %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
+<% else %>
+  <%= "いいねした投稿はありません" %>
 <% end %>

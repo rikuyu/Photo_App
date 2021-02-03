@@ -1,5 +1,11 @@
-<% @followers.each do |follower| %>
-  <div>
-    <%= link_to  follower.email, [follower] %>
-  </div>
+<% if @followers.size != 0 %>
+  <%= "フォロワー一覧" %>
+  <hr>
+  <% @followers.each do |follower| %>
+    <div>
+      <%= link_to follower.email, [follower] %>
+    </div>
+  <% end %>
+<% else %>
+  <%= "フォロワーはいません" %>
 <% end %>

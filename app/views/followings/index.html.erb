@@ -1,5 +1,11 @@
-<% @followings.each do |following| %>
-  <div>
-    <%= link_to  following.email, [following] %>
-  </div>
+<% if @followings.size != 0 %>
+  <%= "フォロー一覧" %>
+  <hr>
+  <% @followings.each do |following| %>
+    <div>
+      <%= link_to following.email, [following] %>
+    </div>
+  <% end %>
+<% else %>
+  <%= "フォローしたアカウントはありません" %>
 <% end %>

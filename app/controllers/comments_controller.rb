@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to [@photo]
     else
-      render "photos\show"
+      render 'photos/show'
     end
   end
 
@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
     comment = current_user.comments.find(params[:id])
     comment.destroy
 
-    redirect_to [:photo, {id: params[:photo_id]}]
+    redirect_to [:photo, { id: params[:photo_id] }]
   end
 
   private

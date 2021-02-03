@@ -7,7 +7,7 @@ class PhotosController < ApplicationController
   end
 
   def new
-    @photo = current_user.photos.new  ##modelの代入
+    @photo = current_user.photos.new
   end
 
   def create
@@ -18,6 +18,12 @@ class PhotosController < ApplicationController
     else
       render :new
     end
+  end
+
+  def destroy
+    current_user.photos.find(params[:id]).destroy
+
+    redirect_to [current_user]
   end
 
   private

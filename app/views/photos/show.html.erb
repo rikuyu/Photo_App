@@ -16,15 +16,15 @@
     <div>
       <% if user_signed_in? %>
         <% if current_user.likes.exists?(photo_id: @photo.id) %>
-          <%= link_to 'BAD', [@photo, :like], method: :delete %>
+          <%= link_to 'unlike', [@photo, :like], method: :delete %>
         <% else %>
-          <%= link_to 'GOOD', [@photo, :like], method: :post %>
+          <%= link_to 'like', [@photo, :like], method: :post %>
         <% end %>
       <% end %>
     </div>
     <div>
       <% if @photo.user == current_user %>
-        <%= link_to '削除', [@photo], method: :delete %>
+        <%= link_to 'delete', [@photo], method: :delete %>
       <% end %>
     </div>
   </div>
@@ -41,7 +41,7 @@
       </div>
       <% if comment.user == current_user %>
         <div>
-          <%= link_to 'コメント削除', [@photo, comment], method: :delete %>
+          <%= link_to 'delete', [@photo, comment], method: :delete %>
         </div>
       <% end %>
     <% end %>
@@ -60,5 +60,7 @@
         <%= f.submit class: 'button is-primary' %>
       <% end %>
     <% end %>
+
+    <%= link_to "HOMEへ戻る", root_path %>
   </div>
 </div>

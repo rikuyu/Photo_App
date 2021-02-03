@@ -1,33 +1,47 @@
-<h1>Home</h1>
-
-<div>
-  <li>
-    <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-  </li>
-  <li>
-    <%= link_to "写真投稿", [:new, :photo] %>
-  </li>
-</div>
-
 <% User.all.each do |user| %>
   <div>
     <%= link_to user.email, [user] %>
   </div>
 <% end %>
 <hr>
+<% if user_signed_in? %>
+  <%= "ログイン中ユーザー" %>
+  <%= current_user.email %>
+  <br>
+  <%= link_to "アカウントを変える", new_user_session_path, method: :get %>
+<% end %>
+
+<div>
+  <ul>
+    <li>
+      <%= link_to '写真投稿', [:new, :photo] %>
+    </li>
+    <li>
+      <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+      <%#= link_to 'ログアウト', new_user_registration_path, method: :get %>
+    </li>
+  </ul>
+</div>
+
+<hr>
+<%= "タイムライン" %>
 <% @feeds.each do |photo| %>
-  <div>
+  <div class="card mb-4">
     <div>
       <%= link_to photo.user.email, [photo.user] %>
     </div>
-    <div>
-      <%= link_to [photo] do %>
-        <%= image_tag photo.image %>
-      <% end %>
+    <div class="card-image">
+      <figure class="image">
+        <%= link_to [photo] do %>
+          <%= image_tag photo.image %>
+        <% end %>
+      </figure>
     </div>
-    <div>
-      <%= photo.caption %>
+    <div class="card-content">
+      <div>
+        <%= photo.caption %>
+      </div>
     </div>
-    <hr>
   </div>
+  <hr>
 <% end %>
