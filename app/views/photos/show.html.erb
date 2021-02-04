@@ -8,7 +8,7 @@
   </div>
   <div class="card-content">
     <div>
-      <%= link_to @photo.user.email, [@photo.user] %>
+      <%= link_to @photo.user.username, [@photo.user] %>
     </div>
     <div>
       <%= @photo.caption %>
@@ -34,7 +34,8 @@
   <div class="card-content">
     <% @photo.comments.each do |comment| %>
       <div>
-        <%= link_to comment.user.email, [comment.user] %>
+        <%= "by" %>
+        <%= link_to comment.user.username, [comment.user] %>
       </div>
       <div>
         <%= comment.body %>

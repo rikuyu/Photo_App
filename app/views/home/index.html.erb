@@ -1,24 +1,26 @@
+<div>
+  <%= "全ユーザー" %>
+  <%= User.all.size %>
+  <%= "人" %>
+</div>
 <% User.all.each do |user| %>
   <div>
-    <%= link_to user.email, [user] %>
+    <%= link_to user.username, [user] %>
   </div>
 <% end %>
 <hr>
 <% if user_signed_in? %>
-  <%= "ログイン中ユーザー" %>
-  <%= current_user.email %>
-  <br>
-  <%= link_to "アカウントを変える", new_user_session_path, method: :get %>
+  <%= "ログイン中ユーザー：" %>
+  <%= current_user.username %>
 <% end %>
 
 <div>
   <ul>
     <li>
-      <%= link_to '写真投稿', [:new, :photo] %>
+      <%= link_to '写真投稿', [:new, :photo], class: 'button is-black' %>
     </li>
     <li>
       <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-      <%#= link_to 'ログアウト', new_user_registration_path, method: :get %>
     </li>
   </ul>
 </div>
@@ -28,7 +30,7 @@
 <% @feeds.each do |photo| %>
   <div class="card mb-4">
     <div>
-      <%= link_to photo.user.email, [photo.user] %>
+      <%= link_to photo.user.username, [photo.user] %>
     </div>
     <div class="card-image">
       <figure class="image">
