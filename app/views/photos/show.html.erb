@@ -1,67 +1,87 @@
-<div class="card mb-4">
-  <div class="card-image">
-    <figure class="image">
-      <%= link_to [@photo] do %>
-        <%= image_tag @photo.image %>
+<div class="container">
+  <div>
+    <div class="mt-4">
+      <%= link_to [@photo.user] do %>
+        <i class="far fa-user-circle"></i>
+        <%= @photo.user.username %>
       <% end %>
-    </figure>
-  </div>
-  <div class="card-content">
-    <div>
-      <%= link_to @photo.user.username, [@photo.user] %>
+      <hr>
     </div>
     <div>
-      <%= @photo.caption %>
-    </div>
-    <div>
-      <% if user_signed_in? %>
-        <% if current_user.likes.exists?(photo_id: @photo.id) %>
-          <%= link_to 'unlike', [@photo, :like], method: :delete %>
-        <% else %>
-          <%= link_to 'like', [@photo, :like], method: :post %>
+      <figure>
+        <%= link_to [@photo] do %>
+          <%= image_tag @photo.image %>
         <% end %>
-      <% end %>
+      </figure>
     </div>
     <div>
-      <% if @photo.user == current_user %>
-        <%= link_to 'delete', [@photo], method: :delete %>
-      <% end %>
+
+      <div>
+        <i class="far fa-sticky-note"></i>
+        <%= @photo.caption %>
+      </div>
+      <hr>
+      <div>
+        <% if user_signed_in? %>
+          <% if current_user.likes.exists?(photo_id: @photo.id) %>
+            <%= link_to [@photo, :like], class: 'button is-primary mt-2', method: :delete do %>
+              <%= "よくないね" %><i class="fas fa-heart-broken"></i>
+            <% end %>
+          <% else %>
+            <%= link_to [@photo, :like], class: 'button is-primary mt-2', method: :post do %>
+              <%= "いいね" %><i class="far fa-heart pl-1"></i>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <div>
+        <% if @photo.user == current_user %>
+          <%= link_to [@photo], class: 'button is-primary my-2', method: :delete do %>
+            <%= "投稿削除" %><i class="far fa-trash-alt pl-1"></i>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="card mb-4">
-  <div class="card-content">
-    <% @photo.comments.each do |comment| %>
-      <div>
-        <%= "by" %>
-        <%= link_to comment.user.username, [comment.user] %>
-      </div>
-      <div>
-        <%= comment.body %>
-      </div>
-      <% if comment.user == current_user %>
+  <div>
+    <div>
+      <% @photo.comments.each do |comment| %>
         <div>
-          <%= link_to 'delete', [@photo, comment], method: :delete %>
+          <%= "by" %>
+          <%= link_to comment.user.username, [comment.user] %>
         </div>
-      <% end %>
-    <% end %>
-
-    <% if user_signed_in? %>
-      <% if @comment.errors.any? %>
-        <% @comment.errors.full_messages.each do |message| %>
-          <div><%= message %></div>
+        <div>
+          <%= comment.body %>
+        </div>
+        <% if comment.user == current_user %>
+          <div>
+            <%= link_to [@photo, comment],class: "pr-1", method: :delete do %>
+              <%= "コメント削除" %><i class="far fa-trash-alt"></i>
+            <% end %>
+          </div>
         <% end %>
       <% end %>
 
-      <%= form_with model: [@photo, @comment], local: true do |f| %>
-        <div class="field">
-          <%= f.text_field :body, class: 'input' %>
-        </div>
-        <%= f.submit class: 'button is-primary' %>
-      <% end %>
-    <% end %>
+      <% if user_signed_in? %>
+        <% if @comment.errors.any? %>
+          <% @comment.errors.full_messages.each do |message| %>
+            <div><%= message %></div>
+          <% end %>
+        <% end %>
 
-    <%= link_to "HOMEへ戻る", root_path %>
+        <%= form_with model: [@photo, @comment], local: true do |f| %>
+          <%= "コメントを残す" %>
+          <div class="field">
+            <%= f.text_field :body, class: 'input is-primary fa', placeholder: "\uF075" %>
+          </div>
+          <%= f.submit class: 'button is-primary' %>
+        <% end %>
+      <% end %>
+
+      <%= link_to root_path, class: 'button is-primary mt-2' do %>
+        <%= "HOMEへ戻る" %><i class="fas fa-home pl-1"></i>
+      <% end %>
+    </div>
   </div>
 </div>

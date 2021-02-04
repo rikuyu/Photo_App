@@ -1,49 +1,63 @@
-<div>
-  <%= "全ユーザー" %>
-  <%= User.all.size %>
-  <%= "人" %>
-</div>
-<% User.all.each do |user| %>
-  <div>
-    <%= link_to user.username, [user] %>
-  </div>
-<% end %>
-<hr>
-<% if user_signed_in? %>
-  <%= "ログイン中ユーザー：" %>
-  <%= current_user.username %>
-<% end %>
-
-<div>
-  <ul>
-    <li>
-      <%= link_to '写真投稿', [:new, :photo], class: 'button is-black' %>
-    </li>
-    <li>
-      <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-    </li>
-  </ul>
-</div>
-
-<hr>
-<%= "タイムライン" %>
-<% @feeds.each do |photo| %>
-  <div class="card mb-4">
-    <div>
-      <%= link_to photo.user.username, [photo.user] %>
-    </div>
-    <div class="card-image">
-      <figure class="image">
-        <%= link_to [photo] do %>
-          <%= image_tag photo.image %>
+ <div class="tabs is-right">
+    <ul>
+      <li>
+        <% if user_signed_in? %>
+          <i class="fas fa-user-circle"></i>
+          <%= current_user.username %>
         <% end %>
-      </figure>
-    </div>
-    <div class="card-content">
+      </li>
+      <li>
+        <%= link_to [:new, :photo] do %>
+          <i class="fas fa-plus-square pr-1"></i><%= "写真投稿" %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to destroy_user_session_path, method: :delete do %>
+          <i class="fas fa-sign-out-alt pr-1"></i><%= "ログアウト" %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+
+  <div class="container">
+    <i class="fas fa-user-friends pr-1 mb-2"></i><%= "全ユーザー" %>
+    <%= User.all.size %>
+    <%= "人" %>
+    <% User.all.each do |user| %>
       <div>
-        <%= photo.caption %>
+        <i class="fas fa-user-alt"></i>
+        <%= link_to user.username, [user] %>
       </div>
+    <% end %>
+    <hr>
+  </div>
+
+  <div class="container">
+    <div class="is-center">
+      <i class="far fa-images pr-1"></i><%= "タイムライン" %>
+    </div>
+    <hr>
+    <div class="mx-6 my-4">
+      <% @feeds.each do |photo| %>
+        <div class="card p-4">
+          <div>
+            <%= link_to [photo.user] do %>
+              <i class="far fa-user-circle pr-1"></i><%= photo.user.username %>
+            <% end %>
+          </div>
+          <div class="card-image">
+            <figure class="image p-4">
+              <%= link_to [photo] do %>
+                <%= image_tag photo.image %>
+              <% end %>
+            </figure>
+          </div>
+          <div class="m-2">
+            <i class="fas fa-camera pr-1"></i>
+            <%= photo.caption %>
+          </div>
+        </div>
+        <hr>
+      <% end %>
     </div>
   </div>
-  <hr>
-<% end %>

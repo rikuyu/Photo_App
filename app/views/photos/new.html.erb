@@ -1,15 +1,23 @@
-<% if @photo.errors.any? %>
-  <% @photo.errors.full_messages.each do |message| %>
-    <div><%= message %></div>
+<div class="m-6">
+  <% if @photo.errors.any? %>
+    <% @photo.errors.full_messages.each do |message| %>
+      <div><%= message %></div>
+    <% end %>
   <% end %>
-<% end %>
-
-<%= form_with model: @photo, local: true do |f| %>
-  <div class="field">
-    <%= f.file_field :image %>
+  <div class="mb-2">
+    <%= "写真投稿" %>
   </div>
-  <div class="field">
-    <%= f.text_area :caption, class: 'textarea' %>
-  </div>
-  <%= f.submit class: 'button is-primary' %>
-<% end %>
+  <%= form_with model: @photo, local: true do |f| %>
+    <div class="field">
+      <%= f.file_field :image %>
+    </div>
+    <%= "コメント" %>
+    <div class="field">
+      <%= f.text_area :caption, class: 'textarea' %>
+    </div>
+    <%= f.submit class: 'button is-primary' %>
+  <% end %>
+  <%= link_to root_path, class: 'button is-primary mt-2' do %>
+    <%= "HOMEへ戻る" %><i class="fas fa-home pl-1"></i>
+  <% end %>
+</div>

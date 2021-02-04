@@ -1,26 +1,39 @@
 <%- if controller_name != 'sessions' %>
-  <%= "すでにアカウントをお持ちの方" %>
-  <%= link_to "ログイン", new_session_path(resource_name) %><br />
+  <div class="mt-2">
+    <%= "すでにアカウントをお持ちの方" %>
+  </div>
+  <%= link_to new_session_path(resource_name), class: "button is-primary ml-2" do %>
+    <%= "ログイン" %>
+    <i class="fas fa-sign-in-alt"></i>
+  <% end %>
 <% end %>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "サインアップ", new_registration_path(resource_name) %><br />
+  <%= link_to new_registration_path(resource_name), class: "button is-primary" do %>
+    <%= "サインアップ" %>
+    <i class="fas fa-external-link-alt"></i>
+  <% end %>
+  <br/>
 <% end %>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <%= link_to "パスワードを忘れた", new_password_path(resource_name) %><br />
+  <%= link_to new_password_path(resource_name), class: "button is-primary" do %>
+    <%= "パスワードを忘れた" %>
+    <i class="fas fa-question"></i>
+  <% end %><br/>
 <% end %>
 
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
+  <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br/>
 <% end %>
 
 <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-  <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
+  <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br/>
 <% end %>
 
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %><br />
+    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %>
+    <br/>
   <% end %>
 <% end %>
