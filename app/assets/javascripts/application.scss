@@ -2,3 +2,17 @@
 
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
+
+.notice {
+  background-color: #00c4a7;
+  color: white;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.alert {
+  background-color: #f03a5f;
+  color: white;
+  text-align: center;
+  padding: 8px 0;
+}
